@@ -1,0 +1,573 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="https://pl30734386.effectivecpmnetwork.com/0a/26/d1/0a26d1a2181e7ddca7ff242ef949b0c1.js"></script>
+    
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes Keeper - Dynamic Notes Hub</title>
+    <meta name="author" content="Ayur Saini">
+<meta name="copyright" content="Copyright © 2026 Notes Keeper - Dynamic Notes Hub. All Rights Reserved.">
+    
+    <!-- FontAwesome icons ke liye -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+            
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Navbar */
+        header {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .add-btn {
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            color: #0f172a;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .add-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem 1.5rem;
+            background: radial-gradient(circle at center, #1e1b4b 0%, #0f172a 70%);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .hero h1 span {
+            color: #38bdf8;
+        }
+
+        .hero p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+        }
+
+        /* Search Bar */
+        .search-container {
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 0.9rem 1.5rem 0.9rem 3rem;
+            border-radius: 30px;
+            border: 1px solid #334155;
+            background: #1e293b;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .search-container input:focus {
+            border-color: #38bdf8;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+        }
+
+        .search-container i {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+        }
+
+        /* Main Library Grid */
+        .library-section {
+            padding: 2rem 5%;
+            max-width: 1300px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            border-left: 4px solid #38bdf8;
+            padding-left: 1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Cards Design */
+        .card {
+            background: #1e293b;
+            border-radius: 16px;
+            padding: 1.8rem;
+            border: 1px solid #334155;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 220px;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: #38bdf8;
+            box-shadow: 0 10px 25px -5px rgba(56, 189, 248, 0.2);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon {
+            font-size: 2.2rem;
+            color: #38bdf8;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .card-desc {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-btn {
+            background: #334155;
+            color: #38bdf8;
+            text-decoration: none;
+            padding: 0.7rem;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .card:hover .card-btn {
+            background: #38bdf8;
+            color: #0f172a;
+        }
+
+        /* Empty State Placeholder */
+        .empty-msg {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem;
+            color: #64748b;
+            border: 2px dashed #334155;
+            border-radius: 16px;
+        }
+
+        /* Popup Form (Modal) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: #1e293b;
+            padding: 2rem;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 450px;
+            border: 1px solid #334155;
+        }
+
+        .modal-content h2 {
+            margin-bottom: 1.5rem;
+            color: #38bdf8;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: #38bdf8;
+        }
+
+        .modal-btns {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 1.5rem;
+        }
+
+        .btn-cancel {
+            background: #334155;
+            color: #fff;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-save {
+            background: #38bdf8;
+            color: #0f172a;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* Notes Editor View (Hidden by default) */
+        #editorSection {
+            display: none;
+            padding: 2rem 5%;
+            max-width: 1100px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .back-btn {
+            background: #334155;
+            color: #38bdf8;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .editor-header {
+            margin-bottom: 1.5rem;
+        }
+
+        /* High Visibility Textarea Style */
+        .notes-box {
+            width: 100%;
+            height: 350px;
+            background: #090d16;
+            color: #ffffff; /* Blue ki jagah High-Contrast Pure White Text */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 1.2rem;
+            border-radius: 12px;
+            border: 1.5px solid #334155;
+            outline: none;
+            font-size: 1.1rem; /* Clear readability ke liye thoda bada size */
+            line-height: 1.6; /* Proper spacing between lines */
+            resize: vertical;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .notes-box:focus {
+            border-color: #38bdf8;
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
+        }
+
+        .notes-box::placeholder {
+            color: #64748b; /* Placeholder text halka grey rahega */
+        }
+
+        /* Footer */
+        footer {
+            margin-top: auto;
+            background: #090d16;
+            text-align: center;
+            padding: 2rem;
+            color: #64748b;
+            border-top: 1px solid #1e293b;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo" onclick="showHome()">
+            <i class="fa-solid fa-note-sticky"></i> Notes Keeper
+        </div>
+        <button class="add-btn" id="addNavBtn" onclick="openModal()">
+            <i class="fa-solid fa-plus"></i> Add New Note
+        </button>
+    </header>
+
+    <!-- Main Dashboard View -->
+    <div id="mainDashboard">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Welcome to <span>Notes Keeper</span></h1>
+            <p>Your custom personal notes and ideas collection hub.</p>
+
+            <!-- Search Bar -->
+            <div class="search-container">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" onkeyup="searchNotes()" placeholder="Search added notes...">
+            </div>
+        </section>
+
+        <!-- Notes Section -->
+        <section class="library-section">
+            <div class="section-header">
+                <h2 class="section-title">Your Notes</h2>
+            </div>
+            
+            <div class="grid" id="notesGrid">
+                <!-- Cards yahan dynamic add honge -->
+            </div>
+        </section>
+    </div>
+
+    <!-- Notes Editor Section (Note Open Karne Par Khulega) -->
+    <section id="editorSection">
+        <button class="back-btn" onclick="showHome()">
+            <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+        </button>
+        <div class="editor-header">
+            <h1 id="activeNoteTitle" style="color: #38bdf8; margin-bottom: 0.5rem;">Note Title</h1>
+            <p id="activeNoteDesc" style="color: #94a3b8;">Description details...</p>
+        </div>
+        
+        <div style="margin-bottom: 1.5rem;">
+            <label style="display:block; margin-bottom: 0.5rem; color: #94a3b8;">Write / Edit Your Note Details Here:</label>
+            <textarea id="noteTextarea" class="notes-box" placeholder="Start typing your note here..."></textarea>
+        </div>
+
+        <button class="btn-save" style="font-size: 1rem; padding: 0.8rem 1.5rem;" onclick="saveNoteContent()">
+            <i class="fa-solid fa-floppy-disk"></i> Save Note
+        </button>
+    </section>
+
+    <!-- Modal Form for Adding Note -->
+    <div class="modal" id="addModal">
+        <div class="modal-content">
+            <h2>Add New Note</h2>
+            <div class="form-group">
+                <label>Note Title / Topic</label>
+                <input type="text" id="noteTitleInput" placeholder="e.g. Work Ideas, Shopping List, Project Notes">
+            </div>
+            <div class="form-group">
+                <label>Short Description</label>
+                <textarea id="noteDescInput" rows="3" placeholder="Aap is note mein kya rakh rahe hain..."></textarea>
+            </div>
+            <div class="modal-btns">
+                <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+                <button class="btn-save" onclick="addNote()">Save Note</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Notes Keeper. Designed for Everyone.</p>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        let notesList = JSON.parse(localStorage.getItem('notesKeeperData')) || [];
+        let currentNoteIndex = null;
+
+        // Page load hone par notes render karein
+        window.onload = function() {
+            renderNotes();
+        };
+
+        function renderNotes() {
+            let grid = document.getElementById('notesGrid');
+            grid.innerHTML = '';
+
+            if (notesList.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-msg">
+                        <i class="fa-solid fa-folder-open" style="font-size: 2.5rem; margin-bottom: 10px;"></i>
+                        <p>Abhi koi note nahi hai! Upar <b>"+ Add New Note"</b> par click karke apna pehla note add karein.</p>
+                    </div>`;
+                return;
+            }
+
+            notesList.forEach((item, index) => {
+                let card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div>
+                        <div class="card-header">
+                            <i class="fa-solid fa-pen-to-square card-icon"></i>
+                            <h3 class="card-title">${item.title}</h3>
+                        </div>
+                        <p class="card-desc">${item.desc || 'No description added.'}</p>
+                    </div>
+                    <button class="card-btn" onclick="openNoteEditor(${index})">Open Note</button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Modal Functions
+        function openModal() {
+            document.getElementById('addModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('addModal').style.display = 'none';
+            document.getElementById('noteTitleInput').value = '';
+            document.getElementById('noteDescInput').value = '';
+        }
+
+        function addNote() {
+            let title = document.getElementById('noteTitleInput').value;
+            let desc = document.getElementById('noteDescInput').value;
+
+            if (title.trim() === "") {
+                alert("Kripya Note ka title zaroor likhein!");
+                return;
+            }
+
+            notesList.push({ title: title, desc: desc, content: "" });
+            localStorage.setItem('notesKeeperData', JSON.stringify(notesList));
+            
+            renderNotes();
+            closeModal();
+        }
+
+        // Note Open Karne Ka Function
+        function openNoteEditor(index) {
+            currentNoteIndex = index;
+            let note = notesList[index];
+
+            document.getElementById('mainDashboard').style.display = 'none';
+            document.getElementById('addNavBtn').style.display = 'none';
+            document.getElementById('editorSection').style.display = 'block';
+
+            document.getElementById('activeNoteTitle').innerText = note.title;
+            document.getElementById('activeNoteDesc').innerText = note.desc;
+            document.getElementById('noteTextarea').value = note.content || '';
+        }
+
+        function saveNoteContent() {
+            if (currentNoteIndex !== null) {
+                notesList[currentNoteIndex].content = document.getElementById('noteTextarea').value;
+                localStorage.setItem('notesKeeperData', JSON.stringify(notesList));
+                alert("Note Safaltapurvak Save Ho Gaya Hai!");
+            }
+        }
+
+        function showHome() {
+            document.getElementById('mainDashboard').style.display = 'block';
+            document.getElementById('addNavBtn').style.display = 'flex';
+            document.getElementById('editorSection').style.display = 'none';
+            renderNotes();
+        }
+
+        // Search Function
+        function searchNotes() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('card');
+
+            for (let i = 0; i < cards.length; i++) {
+                let title = cards[i].querySelector('.card-title').innerText.toLowerCase();
+                if (title.includes(input)) {
+                    cards[i].style.display = "flex";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+    <footer>
+    <p>© 2026 Notes Keeper - Dynamic Notes Hub. All Rights Reserved.</p>
+    </footer>
+    
+</body>
+</html>
